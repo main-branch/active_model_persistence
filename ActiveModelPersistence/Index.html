@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: ActiveModelPersistence::Index
+  
+    &mdash; Documentation by YARD 0.9.27
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "ActiveModelPersistence::Index";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (I)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../ActiveModelPersistence.html" title="ActiveModelPersistence (module)">ActiveModelPersistence</a></span></span>
+     &raquo; 
+    <span class="title">Index</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: ActiveModelPersistence::Index
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveModelPersistence::Index</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/active_model_persistence/index.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>An Index keeps a map from a key to zero of more objects</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#key_value_source-instance_method" title="#key_value_source (instance method)">#<strong>key_value_source</strong>  &#x21d2; Symbol, Proc </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Defines how the object’s key value is calculated.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">#<strong>name</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The name of the index.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unique-instance_method" title="#unique (instance method)">#<strong>unique</strong>  &#x21d2; Boolean </a>
+    
+
+    
+      (also: #unique?)
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Determines if a key value can index more than one object.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add_or_update-instance_method" title="#add_or_update (instance method)">#<strong>add_or_update</strong>(object)  &#x21d2; Index </a>
+    
+
+    
+      (also: #&lt;&lt;)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Adds an object to the index.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#include%3F-instance_method" title="#include? (instance method)">#<strong>include?</strong>(key)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns true if the index contains an object with the given key.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(name:, key_value_source: nil, unique: false)  &#x21d2; Index </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create an Index.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#objects-instance_method" title="#objects (instance method)">#<strong>objects</strong>(key)  &#x21d2; Array&lt;Object&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the objects that match the key.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove-instance_method" title="#remove (instance method)">#<strong>remove</strong>(object, key = nil)  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Removes an object from the index.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove_all-instance_method" title="#remove_all (instance method)">#<strong>remove_all</strong>  &#x21d2; void </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Removes all objects from the index.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    #<strong>initialize</strong>(name:, key_value_source: nil, unique: false)  &#x21d2; <tt><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create an Index</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>An object that can be indexed must include Indexable (which includes PrimaryKey)</p>
+</div></p>
+      
+      <pre class="example code"><code>Employee = Struct.new(:id, :name, keyword_init: true)
+  include ActiveModelPersistence::Indexable
+end
+e1 = Employee.new(id: 1, name: &#39;James&#39;)
+e2 = Employee.new(id: 2, name: &#39;Frank&#39;)
+e3 = Employee.new(id: 1, name: &#39;Margaret&#39;) # Note e1.id == e3.id</code></pre>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='comment'># =&gt; &#39;id&#39;
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_key_source'>key_source</span> <span class='comment'># =&gt; :id -- get the key value by calling the &#39;id&#39; method on object
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_unique'>unique</span> <span class='comment'># =&gt; true -- each key can only have one object associated with it
+</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='id identifier rubyid_e1'>e1</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='comment'># =&gt; []
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_e1'>e1</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_e2'>e2</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='id identifier rubyid_e1'>e1</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='comment'># =&gt; [e1]
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='id identifier rubyid_e2'>e2</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='comment'># =&gt; [e2]
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_e3'>e3</span><span class='rparen'>)</span> <span class='comment'># =&gt; raises a UniqueContraintError since e1.id == e3.id
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_e1'>e1</span><span class='rparen'>)</span> <span class='comment'># =&gt; raises an ObjectAlreadyInIndexError</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the name of the index</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>key_value_source</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>, <tt>Proc</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the attribute name or proc used to calculate the index key</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>unique</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>when true the index will only allow one object per key</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+77
+78
+79
+80
+81
+82</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 77</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='label'>name:</span><span class='comma'>,</span> <span class='label'>key_value_source:</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='ivar'>@name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='ivar'>@key_value_source</span> <span class='op'>=</span> <span class='id identifier rubyid_determine_key_value_source'>determine_key_value_source</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_key_value_source'>key_value_source</span><span class='rparen'>)</span>
+  <span class='ivar'>@unique</span> <span class='op'>=</span> <span class='id identifier rubyid_unique'>unique</span>
+  <span class='ivar'>@key_to_objects_map</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="key_value_source-instance_method">
+  
+    #<strong>key_value_source</strong>  &#x21d2; <tt>Symbol</tt>, <tt>Proc</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Defines how the object’s key value is calculated</p>
+
+<p>If a proc is provided, it will be called with the object as an argument to get the key value.</p>
+
+<p>If a symbol is provided, it will identify the method to call on the object to get the key value.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="ActiveModelPersistence::Index#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_value_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_key_value_source'>key_value_source</span> <span class='comment'># =&gt; :id</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>, <tt>Proc</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the method name or proc used to calculate the index key</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_key_value_source'>key_value_source</span>
+  <span class='ivar'>@key_value_source</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
+  
+    #<strong>name</strong>  &#x21d2; <tt>String</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The name of the index</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="ActiveModelPersistence::Index#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='comment'># =&gt; &#39;id&#39;</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The name of the index</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 16</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='ivar'>@name</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <div class="method_details ">
+  <h3 class="signature " id="unique-instance_method">
+  
+    #<strong>unique</strong>  &#x21d2; <tt>Boolean</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='unique?-instance_method'>unique?</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Determines if a key value can index more than one object</p>
+
+<p>The default value is false.</p>
+
+<p>If true, if two objects have the same key, a UniqueContraintError will be raised when trying to add the second object.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="ActiveModelPersistence::Index#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_value_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_unique?'>unique?</span> <span class='comment'># =&gt; true</span></code></pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>true if the index is unique</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+45
+46
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 45</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_unique'>unique</span>
+  <span class='ivar'>@unique</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="add_or_update-instance_method">
+  
+    #<strong>add_or_update</strong>(object)  &#x21d2; <tt><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></tt> 
+  
+
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='<<-instance_method'>&lt;&lt;</span></span>
+    </span>
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Adds an object to the index</p>
+
+<p>If the object was already in the index using a different key, remote the object from the index using the previous key before adding it again.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="ActiveModelPersistence::Index#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='const'>Employee</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>James</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_e'>e</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='comment'># =&gt; [e]
+</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span> <span class='op'>=</span> <span class='int'>2</span>
+<span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_e'>e</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='comment'># =&gt; []
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span> <span class='comment'># =&gt; [e]</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the object to add to the index</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>self so calls can be chained</p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="UniqueConstraintError.html" title="ActiveModelPersistence::UniqueConstraintError (class)">UniqueConstraintError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if the index is unique and there is already an index entry for the same key</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 143</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add_or_update'>add_or_update</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_previous_key'>previous_key</span> <span class='op'>=</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_previous_index_key'>previous_index_key</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='id identifier rubyid_key_value_for'>key_value_for</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='rparen'>)</span>
+
+  <span class='kw'>return</span> <span class='kw'>if</span> <span class='id identifier rubyid_previous_key'>previous_key</span> <span class='op'>==</span> <span class='id identifier rubyid_key'>key</span>
+
+  <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_previous_key'>previous_key</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_previous_key'>previous_key</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='kw'>self</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="include?-instance_method">
+  
+    #<strong>include?</strong>(key)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns true if the index contains an object with the given key</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="ActiveModelPersistence::Index#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='const'>Employee</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>James</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='comment'># =&gt; false
+</span><span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_e'>e</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='comment'># =&gt; true</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the key to search for</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>true if the index contains an object with the given key</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+117
+118
+119</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 117</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_key_to_objects_map'>key_to_objects_map</span><span class='period'>.</span><span class='id identifier rubyid_key?'>key?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="objects-instance_method">
+  
+    #<strong>objects</strong>(key)  &#x21d2; <tt>Array&lt;Object&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the objects that match the key</p>
+
+<p>A unique index will return an Array containing zero or one objects. A non-unique index will return an array containing zero or more objects.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="ActiveModelPersistence::Index#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='const'>Employee</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>James</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_object'>object</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='comment'># =&gt; []
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_object'>object</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span> <span class='comment'># =&gt; [e]</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the key to search for</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Object&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the objects that match the key</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+100
+101
+102</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 100</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_key_to_objects_map'>key_to_objects_map</span><span class='lbracket'>[</span><span class='id identifier rubyid_key'>key</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove-instance_method">
+  
+    #<strong>remove</strong>(object, key = nil)  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Removes an object from the index</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="ActiveModelPersistence::Index#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_e'>e</span> <span class='op'>=</span> <span class='const'>Employee</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>James</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_e'>e</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='comment'># =&gt; [e]
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='id identifier rubyid_e'>e</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='comment'># =&gt; []</span></code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>object</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the object to remove from the index</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>key</span>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the object’s key in the index If nil (the default), call the object.previous_index_key to get the key. ‘previous_index_key` is implemented by the Indexable concern.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="ObjectNotInIndexError.html" title="ActiveModelPersistence::ObjectNotInIndexError (class)">ObjectNotInIndexError</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if the object is not in the index</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+177
+178
+179
+180
+181
+182
+183
+184
+185</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 177</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_key'>key</span> <span class='op'>||=</span> <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_previous_index_key'>previous_index_key</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../ActiveModelPersistence.html" title="ActiveModelPersistence (module)">ActiveModelPersistence</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="ObjectNotInIndexError.html" title="ActiveModelPersistence::ObjectNotInIndexError (class)">ObjectNotInIndexError</a></span></span> <span class='kw'>if</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
+  <span class='id identifier rubyid_remove_object_from_index'>remove_object_from_index</span><span class='lparen'>(</span><span class='id identifier rubyid_object'>object</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove_all-instance_method">
+  
+    #<strong>remove_all</strong>  &#x21d2; <tt>void</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p class="note returns_void">This method returns an undefined value.</p>
+<p>Removes all objects from the index</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='id identifier rubyid_i'>i</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="" title="ActiveModelPersistence::Index (class)">Index</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="#initialize-instance_method" title="ActiveModelPersistence::Index#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>key_source:</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_e1'>e1</span> <span class='op'>=</span> <span class='const'>Employee</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>James</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_e2'>e2</span> <span class='op'>=</span> <span class='const'>Employee</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='int'>2</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Frank</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_i'>i</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_e1'>e1</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_e2'>e2</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='comment'># =&gt; [e1]
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span> <span class='comment'># =&gt; [e2]
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_remove_all'>remove_all</span>
+<span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span> <span class='comment'># =&gt; []
+</span><span class='id identifier rubyid_i'>i</span><span class='period'>.</span><span class='id identifier rubyid_objects'>objects</span><span class='lparen'>(</span><span class='int'>2</span><span class='rparen'>)</span> <span class='comment'># =&gt; []</span></code></pre>
+    
+  </div>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+202
+203
+204
+205
+206
+207
+208
+209
+210</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/active_model_persistence/index.rb', line 202</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remove_all'>remove_all</span>
+  <span class='ivar'>@key_to_objects_map</span><span class='period'>.</span><span class='id identifier rubyid_each_pair'>each_pair</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid__key'>_key</span><span class='comma'>,</span> <span class='id identifier rubyid_objects'>objects</span><span class='op'>|</span>
+    <span class='id identifier rubyid_objects'>objects</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_object'>object</span><span class='op'>|</span>
+      <span class='id identifier rubyid_object'>object</span><span class='period'>.</span><span class='id identifier rubyid_clear_index_key'>clear_index_key</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='ivar'>@key_to_objects_map</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Jan 17 14:35:20 2022 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.27 (ruby-3.1.0).
+</div>
+
+    </div>
+  </body>
+</html>

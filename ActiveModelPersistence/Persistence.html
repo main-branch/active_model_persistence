@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: ActiveModelPersistence::Persistence
+  
+    &mdash; Documentation by YARD 0.9.27
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "ActiveModelPersistence::Persistence";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (P)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../ActiveModelPersistence.html" title="ActiveModelPersistence (module)">ActiveModelPersistence</a></span></span>
+     &raquo; 
+    <span class="title">Persistence</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: ActiveModelPersistence::Persistence
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>ActiveSupport::Concern</dd>
+  </dl>
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Indexable.html" title="ActiveModelPersistence::Indexable (module)">Indexable</a></span>, <span class='object_link'><a href="PrimaryKey.html" title="ActiveModelPersistence::PrimaryKey (module)">PrimaryKey</a></span>, <span class='object_link'><a href="PrimaryKeyIndex.html" title="ActiveModelPersistence::PrimaryKeyIndex (module)">PrimaryKeyIndex</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/active_model_persistence/persistence.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This mixin adds the ability to store and manage Ruby objects in an in-memory object store. These objects are commonly called ‘models’.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><code><span class='kw'>class</span> <span class='const'>ModelExample</span>
+  <span class='id identifier rubyid_include'>include</span> <span class='const'><span class='object_link'><a href="../ActiveModelPersistence.html" title="ActiveModelPersistence (module)">ActiveModelPersistence</a></span></span><span class='op'>::</span><span class='const'>Persistence</span>
+  <span class='id identifier rubyid_attribute'>attribute</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='symbol'>:integer</span>
+  <span class='id identifier rubyid_attribute'>attribute</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='symbol'>:string</span>
+  <span class='id identifier rubyid_index'>index</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='label'>unique:</span> <span class='kw'>true</span>
+<span class='kw'>end</span>
+
+<span class='comment'># Creating a model instance with `.new` does not save it to the object store
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_m'>m</span> <span class='op'>=</span> <span class='const'>ModelExample</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='label'>id:</span> <span class='int'>1</span><span class='comma'>,</span> <span class='label'>name:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>James</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_new_record?'>new_record?</span> <span class='comment'># =&gt; true
+</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_persisted?'>persisted?</span> <span class='comment'># =&gt; false
+</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_destroyed?'>destroyed?</span> <span class='comment'># =&gt; false
+</span>
+<span class='comment'># `save` will save the object to the object store
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_save'>save</span>
+<span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_new_record?'>new_record?</span> <span class='comment'># =&gt; false
+</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_persisted?'>persisted?</span> <span class='comment'># =&gt; true
+</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_destroyed?'>destroyed?</span> <span class='comment'># =&gt; false
+</span>
+<span class='comment'># Once an object is persisted, it can be fetched from the object store using `.find`
+</span><span class='comment'># and `.find_by_*` methods.
+</span><span class='id identifier rubyid_m2'>m2</span> <span class='op'>=</span> <span class='const'>ModelExample</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_m'>m</span> <span class='op'>==</span> <span class='id identifier rubyid_m2'>m2</span> <span class='comment'># =&gt; true
+</span>
+<span class='id identifier rubyid_m2'>m2</span> <span class='op'>=</span> <span class='const'>ModelExample</span><span class='period'>.</span><span class='id identifier rubyid_find_by_id'>find_by_id</span><span class='lparen'>(</span><span class='int'>1</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_m'>m</span> <span class='op'>==</span> <span class='id identifier rubyid_m2'>m2</span> <span class='comment'># =&gt; true
+</span>
+<span class='comment'># `destroy` will remove the object from the object store
+</span><span class='comment'>#
+</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_destroy'>destroy</span>
+<span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_new_record?'>new_record?</span> <span class='comment'># =&gt; true
+</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_persisted?'>persisted?</span> <span class='comment'># =&gt; false
+</span><span class='id identifier rubyid_m'>m</span><span class='period'>.</span><span class='id identifier rubyid_destroyed?'>destroyed?</span> <span class='comment'># =&gt; true</span></code></pre>
+    
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+</div>
+
+      <div id="footer">
+  Generated on Mon Jan 17 14:35:20 2022 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.27 (ruby-3.1.0).
+</div>
+
+    </div>
+  </body>
+</html>
