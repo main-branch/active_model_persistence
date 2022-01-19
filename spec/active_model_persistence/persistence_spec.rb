@@ -101,6 +101,15 @@ RSpec.describe ActiveModelPersistence::Persistence do
       end
     end
 
+    describe '#save!' do
+      context 'for an invalid object' do
+        let(:object) { model_class.new }
+        it 'should raise an error' do
+          expect { object.save! }.to raise_error(ActiveModelPersistence::ObjectNotSavedError)
+        end
+      end
+    end
+
     describe '#save' do
       let(:object) { model_class.new(attributes) }
       before do

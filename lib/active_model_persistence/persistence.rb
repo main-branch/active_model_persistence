@@ -14,6 +14,7 @@ module ActiveModelPersistence
   #     attribute :id, :integer
   #     attribute :name, :string
   #     index :id, unique: true
+  #     validates :id, presence: true
   #   end
   #
   #   # Creating a model instance with `.new` does not save it to the object store
@@ -272,6 +273,28 @@ module ActiveModelPersistence
         result = new_record? ? _create(&block) : _update(&block)
         update_indexes
         result != false
+      end
+
+      # Calls #save and raises an error if #save returns false
+      #
+      # @example
+      #   object = ModelExample.new(id: nil, name: 'James')
+      #   object.save! #=> raises ObjectNotSavedError
+      #
+      # @param _options [Hash] save options (currently unused)
+      #
+      # @param block [Proc] a block to call after the save
+      #
+      # @yield [self] a block to call after the save
+      # @yieldparam saved_model [self] the model object after it was saved
+      # @yieldreturn [void]
+      #
+      # @raise [ObjectNotSavedError] if the model object was not saved
+      #
+      # @return [Boolean] returns true or raises an error
+      #
+      def save!(**options, &block)
+        save(**options, &block) || raise(ObjectNotSavedError.new('Failed to save the object', self))
       end
 
       # Deletes the object from the object store
