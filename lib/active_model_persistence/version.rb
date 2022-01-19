@@ -2,5 +2,5 @@
 
 module ActiveModelPersistence
   # The version of the active_model_persistence gem
-  VERSION = '0.1.0'
+  VERSION = '0.2.0'
 end
