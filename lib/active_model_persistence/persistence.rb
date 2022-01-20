@@ -307,7 +307,7 @@ module ActiveModelPersistence
       #   object.save
       #   ModelExample.all.count #=> 1
       #
-      # @param _options [Hash] save options (currently unused)
+      # @param options [Hash] save options (currently unused)
       # @param block [Proc] a block to call after the save
       #
       # @yield [self] a block to call after the save
@@ -316,12 +316,12 @@ module ActiveModelPersistence
       #
       # @return [Boolean] true if the model object was saved
       #
-      def save(**_options, &block)
-        return false if destroyed?
-
-        result = new_record? ? _create(&block) : _update(&block)
-        update_indexes
-        result != false
+      def save(**options, &block)
+        save!(**options, &block)
+      rescue ModelError
+        false
+      else
+        true
       end
 
       # Calls #save and raises an error if #save returns false
@@ -342,8 +342,13 @@ module ActiveModelPersistence
       #
       # @return [Boolean] returns true or raises an error
       #
-      def save!(**options, &block)
-        save(**options, &block) || raise(ObjectNotValidError)
+      def save!(**_options, &block)
+        raise ObjectDestroyedError if destroyed?
+        raise ObjectNotValidError unless valid?
+
+        new_record? ? _create(&block) : _update(&block)
+        update_indexes
+        true
       end
 
       # Deletes the object from the object store
@@ -423,6 +428,11 @@ module ActiveModelPersistence
 
       # Creates a record with values matching those of the instance attributes
       # and returns its id.
+      #
+      # @return [Object] the primary_key of the created object
+      #
+      # @api private
+      #
       def _create
         return false unless primary_key?
         raise UniqueContraintError if primary_key_index.include?(primary_key)
@@ -436,10 +446,18 @@ module ActiveModelPersistence
         primary_key
       end
 
+      # Updates an object that is already in the object store
+      #
+      # @return [Boolean] true if the object was update successfully, otherwise raises a ModelError
+      #
+      # @api private
+      #
       def _update
         raise RecordNotFound unless primary_key_index.include?(primary_key)
 
         yield(self) if block_given?
+
+        true
       end
     end
     # rubocop:enable Metrics/BlockLength
