@@ -450,5 +450,125 @@ RSpec.describe ActiveModelPersistence::Persistence do
         end
       end
     end
+
+    describe '#update' do
+      context 'for a valid object' do
+        it 'should return true' do
+          object = model_class.new(short_id: '1', name: 'foo')
+          expect(object.update(name: 'bar')).to eq(true)
+        end
+      end
+
+      context 'for an invalid object' do
+        it 'should return false' do
+          object = model_class.new(short_id: nil, name: 'foo')
+          expect(object.update(name: 'bar')).to eq(false)
+        end
+      end
+    end
+
+    describe '#update!' do
+      let(:object) { model_class.new(attributes) }
+      let(:attributes) { { short_id: '1', name: 'foo' } }
+
+      context 'with a new, valid object' do
+        before do
+          @result = object.update!(name: 'bar')
+        end
+        subject { @result }
+
+        it { is_expected.to eq(true) }
+
+        it 'should set new_record? to false' do
+          expect(object.new_record?).to eq(false)
+        end
+
+        it 'should set persisted? to true' do
+          expect(object.persisted?).to eq(true)
+        end
+
+        it 'should set destroyed? to false' do
+          expect(object.destroyed?).to eq(false)
+        end
+
+        it 'should add the object to the object store' do
+          expect(model_class.all.size).to eq(1)
+          expect(model_class.find('1')).to eq(object)
+        end
+
+        it 'should add the object to the primary key index' do
+          expect(model_class.find('1')).to eq(object)
+        end
+
+        it 'should add the object to the name index' do
+          expect(model_class.find_by_name('bar').first.name).to eq(object.name)
+        end
+      end
+
+      context 'with a new, invalid object' do
+        let(:attributes) { { short_id: nil, name: 'foo' } }
+
+        it 'should raise an ObjectNotValidError' do
+          expect { object.update!(name: 'bar') }.to raise_error(ActiveModelPersistence::ObjectNotValidError)
+        end
+
+        it 'should not change the new_record? state (should be true)' do
+          expect { object.update!(name: 'bar') }.to raise_error(ActiveModelPersistence::ObjectNotValidError)
+          expect(object.new_record?).to eq(true)
+        end
+
+        it 'should not change the persisted? state (should be false)' do
+          expect { object.update!(name: 'bar') }.to raise_error(ActiveModelPersistence::ObjectNotValidError)
+          expect(object.persisted?).to eq(false)
+        end
+
+        it 'should not change the destroyed? state (should be false)' do
+          expect { object.update!(name: 'bar') }.to raise_error(ActiveModelPersistence::ObjectNotValidError)
+          expect(object.destroyed?).to eq(false)
+        end
+
+        it 'should not add the object to the object store' do
+          expect { object.update!(name: 'bar') }.to raise_error(ActiveModelPersistence::ObjectNotValidError)
+          expect(model_class.all.size).to be_zero
+        end
+      end
+
+      context 'with an object that is already persisted and then changed' do
+        before do
+          object.save
+          @result = object.update!(name: 'bar')
+        end
+
+        subject { @result }
+
+        it { is_expected.to eq(true) }
+
+        it 'should set new_record? to false' do
+          expect(object.new_record?).to eq(false)
+        end
+
+        it 'should set persisted? to true' do
+          expect(object.persisted?).to eq(true)
+        end
+
+        it 'should set destroyed? to false' do
+          expect(object.destroyed?).to eq(false)
+        end
+
+        it 'should update the object to the object store' do
+          expect(model_class.find('1').name).to eq('bar')
+        end
+      end
+
+      context 'with a destroyed object' do
+        before do
+          object.destroy
+        end
+
+        it 'should raise an ObjectDestroyedError' do
+          expect { object.update!(name: 'bar') }.to raise_error(ActiveModelPersistence::ObjectDestroyedError)
+        end
+      end
+    end
   end
 end

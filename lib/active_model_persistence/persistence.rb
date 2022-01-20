@@ -377,6 +377,48 @@ module ActiveModelPersistence
         attributes == other.attributes
       end
 
+      # Updates the attributes of the model and saves it
+      #
+      # The attributes are updated from the passed in hash. If the object is invalid,
+      # the save will fail and false will be returned.
+      #
+      # @example
+      #   object = ModelExample.create(id: 1, name: 'James')
+      #   object.update(name: 'Frank')
+      #   object.find(1).name #=> 'Frank'
+      #
+      # @param attributes [Hash] the attributes to update
+      #
+      # @return [Boolean] true if the model object was saved, otherwise false
+      #
+      def update(attributes)
+        update!(attributes)
+      rescue ModelError
+        false
+      else
+        true
+      end
+
+      # Updates just like #update but an exception is raised of the model is invalid
+      #
+      # @example
+      #   object = ModelExample.create(id: 1, name: 'James')
+      #   object.update!(id: nil) #=> raises ObjectNotSavedError
+      #
+      # @param attributes [Hash] the attributes to update
+      #
+      # @return [Boolean] true if the model object was saved, otherwise an error is raised
+      #
+      # @raise [ObjectNotValidError] if the model object is invalid
+      # @raise [ObjectDestroyedError] if the model object was previously destroyed
+      #
+      def update!(attributes)
+        raise ObjectDestroyedError if destroyed?
+
+        assign_attributes(attributes)
+        save!
+      end
+
       private
 
       # Creates a record with values matching those of the instance attributes
