@@ -38,7 +38,10 @@ module ActiveModelPersistence
     include ActiveModel::Model
     include ActiveModel::Attributes
 
-    class_methods do
+    # When this module is included in another class, ActiveSupport::Concern will
+    # make these class methods on that class.
+    #
+    module ClassMethods
       # Identifies the attribute that the `primary_key` accessor maps to
       #
       # The primary key is 'id' by default.
