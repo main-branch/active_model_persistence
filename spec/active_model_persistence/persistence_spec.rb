@@ -51,52 +51,139 @@ RSpec.describe ActiveModelPersistence::Persistence do
     end
 
     describe '.create' do
-      context 'after creating an object with .create' do
-        before do
-          @object = model_class.create(short_id: '1', name: 'foo')
-        end
+      # Since '.create' uses '.save' internally, we don't test the details of '.save' here
 
-        it 'should create a new instance of the model' do
-          expect(@object).to be_a(model_class)
-          expect(@object).to have_attributes(short_id: '1', name: 'foo')
-        end
+      before do
+        @result = model_class.create(attributes)
+      end
+      subject { @result }
 
-        it 'should add the object to the short_id index' do
-          object = model_class.new(short_id: '1', name: 'foo')
-          expect(model_class.find('1')).to eq(object)
+      context 'creating a valid object' do
+        let(:attributes) { { short_id: '1', name: 'foo' } }
+
+        it { is_expected.to be_a(model_class) }
+        it { is_expected.to have_attributes(short_id: '1', name: 'foo', persisted?: true) }
+
+        it 'should add the object to the object store' do
+          expect(model_class.find('1')).to eq(subject)
         end
 
         it 'should add the object to the name index' do
-          expect(model_class.find_by_name('foo')).to eq([@object])
+          expect(model_class.find_by_name('foo').first).to eq(subject)
         end
 
         it '#new_record? should be false' do
-          expect(@object.new_record?).to eq(false)
-        end
-
-        it '#destroyed? should be false' do
-          expect(@object.destroyed?).to eq(false)
+          expect(subject.new_record?).to eq(false)
         end
 
         it '#persisted? should be true' do
-          expect(@object.persisted?).to eq(true)
+          expect(subject.persisted?).to eq(true)
+        end
+
+        it '#destroyed? should be false' do
+          expect(subject.destroyed?).to eq(false)
         end
       end
 
-      context 'when given an array of attribute hashs' do
-        let(:array_of_attributes) do
+      context 'creating an invalid object' do
+        let(:attributes) { { short_id: nil, name: nil } }
+
+        it { is_expected.to be_a(model_class) }
+        it { is_expected.to have_attributes(short_id: nil, name: nil, persisted?: false) }
+      end
+
+      context 'when given an array of attribute hashs to create valid objects' do
+        let(:attributes) do
           [
             { short_id: '1', name: 'foo' },
             { short_id: '2', name: 'bar' },
             { short_id: '3', name: 'baz' }
           ]
         end
-        it 'should create an array of objects' do
-          result = model_class.create(array_of_attributes)
-          expect(result).to be_a(Array)
-          expect(result.size).to eq(3)
-          expect(result.map(&:short_id)).to eq(%w[1 2 3])
-          expect(result.map(&:name)).to eq(%w[foo bar baz])
+
+        it { is_expected.to be_an(Array) }
+        it { is_expected.to have_attributes(size: 3) }
+        it { is_expected.to all(be_a(model_class)) }
+        it { is_expected.to all(have_attributes(short_id: be_a(String), name: be_a(String), persisted?: true)) }
+
+        it 'should have created the objects in the object store' do
+          expect(model_class.all.size).to eq(3)
+          expect(model_class.find('1')).to eq(subject[0])
+          expect(model_class.find('2')).to eq(subject[1])
+          expect(model_class.find('3')).to eq(subject[2])
+        end
+      end
+    end
+
+    describe '.create!' do
+      # Since '.create' uses '.save' internally, we don't test the details of '.save' here
+
+      before do
+        @result = model_class.create!(attributes)
+      rescue ActiveModelPersistence::ModelError => e
+        @error_raised = e
+      end
+      subject { @result }
+      let(:error_raised) { @error_raised }
+
+      context 'creating a valid object' do
+        let(:attributes) { { short_id: '1', name: 'foo' } }
+
+        it { is_expected.to be_a(model_class) }
+        it { is_expected.to have_attributes(short_id: '1', name: 'foo') }
+
+        it 'should not raise an error' do
+          expect(error_raised).to be_nil
+        end
+
+        it 'should add the object to the object store' do
+          expect(model_class.find('1')).to eq(subject)
+        end
+
+        it 'should add the object to the name index' do
+          expect(model_class.find_by_name('foo').first).to eq(subject)
+        end
+
+        it '#new_record? should be false' do
+          expect(subject.new_record?).to eq(false)
+        end
+
+        it '#persisted? should be true' do
+          expect(subject.persisted?).to eq(true)
+        end
+
+        it '#destroyed? should be false' do
+          expect(subject.destroyed?).to eq(false)
+        end
+      end
+
+      context 'creating an invalid object' do
+        let(:attributes) { { short_id: nil, name: nil } }
+
+        it 'should not raise ObjectNotValidError' do
+          expect(error_raised).to be_a(ActiveModelPersistence::ObjectNotValidError)
+        end
+      end
+
+      context 'when given an array of attribute hashs to create valid objects' do
+        let(:attributes) do
+          [
+            { short_id: '1', name: 'foo' },
+            { short_id: '2', name: 'bar' },
+            { short_id: '3', name: 'baz' }
+          ]
+        end
+
+        it { is_expected.to be_an(Array) }
+        it { is_expected.to have_attributes(size: 3) }
+        it { is_expected.to all(be_a(model_class)) }
+        it { is_expected.to all(have_attributes(short_id: be_a(String), name: be_a(String))) }
+
+        it 'should have created the objects in the object store' do
+          expect(model_class.all.size).to eq(3)
+          expect(model_class.find('1')).to eq(subject[0])
+          expect(model_class.find('2')).to eq(subject[1])
+          expect(model_class.find('3')).to eq(subject[2])
         end
       end
     end
@@ -105,7 +192,7 @@ RSpec.describe ActiveModelPersistence::Persistence do
       context 'for an invalid object' do
         let(:object) { model_class.new }
         it 'should raise an error' do
-          expect { object.save! }.to raise_error(ActiveModelPersistence::ObjectNotSavedError)
+          expect { object.save! }.to raise_error(ActiveModelPersistence::ObjectNotValidError)
         end
       end
     end

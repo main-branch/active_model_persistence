@@ -57,9 +57,11 @@ module ActiveModelPersistence
     # make these class methods on that class.
     #
     module ClassMethods
-      # Creates a new model object in to the object store
+      # Creates a new model object in to the object store and returns it
       #
       # Create a new model object passing `attributes` and `block` to `.new` and then calls `#save`.
+      #
+      # The new model object is returned even if it could not be saved to the object store.
       #
       # @param attributes [Hash, Array<Hash>] attributes
       #
@@ -94,6 +96,50 @@ module ActiveModelPersistence
           attributes.collect { |attr| create(attr, &block) }
         else
           new(attributes, &block).tap(&:save)
+        end
+      end
+
+      # Creates a new model object in to the object store
+      #
+      # Raises an error if the object could not be created.
+      #
+      # Create a new model object passing `attributes` and `block` to `.new` and then calls `#save!`.
+      #
+      # @param attributes [Hash, Array<Hash>] attributes
+      #
+      #   The attributes to set on the model object. These are passed to the model's `.new` method.
+      #
+      #   Multiple model objects can be created by passing an array of attribute Hashes.
+      #
+      # @param block [Proc] options
+      #
+      #   The block to pass to the model's `.new` method.
+      #
+      # @example
+      #   m = ModelExample.new(id: 1, name: 'James')
+      #   m.id #=> 1
+      #   m.name #=> 'James'
+      #
+      # @example Multiple model objects can be created
+      #   array_of_attributes = [
+      #     { id: 1, name: 'James' },
+      #     { id: 2, name: 'Frank' }
+      #   ]
+      #   objects = ModelExample.create(array_of_attributes)
+      #   objects.class #=> Array
+      #   objects.size #=> 2
+      #   objects.first.id #=> 1
+      #   objects.map(&:name) #=> ['James', 'Frank']
+      #
+      # @return [Object, Array<Object>] the model object or array of model objects created
+      #
+      # @raise [ModelError] if the model object could not be created
+      #
+      def create!(attributes = nil, &block)
+        if attributes.is_a?(Array)
+          attributes.collect { |attr| create!(attr, &block) }
+        else
+          new(attributes, &block).tap(&:save!)
         end
       end
 
@@ -297,7 +343,7 @@ module ActiveModelPersistence
       # @return [Boolean] returns true or raises an error
       #
       def save!(**options, &block)
-        save(**options, &block) || raise(ObjectNotSavedError.new('Failed to save the object', self))
+        save(**options, &block) || raise(ObjectNotValidError)
       end
 
       # Deletes the object from the object store

@@ -18,31 +18,10 @@ module ActiveModelPersistence
   class UniqueConstraintError < ModelError; end
 
   # Raised when trying to save an invalid object
-  class ObjectNotSavedError < ModelError
-    # The object that was not saved
-    #
-    # @example
-    #   object = Object.new
-    #   error = ObjectNotSavedError.new('Invalid object', object)
-    #   error.object == object #=> true
-    #
-    # @return [Object] The object that was not saved
-    #
-    attr_reader :object
+  class ObjectNotValidError < ModelError; end
 
-    # Create a new error
-    #
-    # @example
-    #   ObjectNotSavedError.new('Invalid object', self)
-    #
-    # @param message [String] The error message
-    # @param object [Object] The object that was not saved
-    #
-    def initialize(message = nil, object = nil)
-      @object = object
-      super(message)
-    end
-  end
+  # Raised when trying to save! or update! an object that has already been destroyed
+  class ObjectDestroyedError < ModelError; end
 end
 
 require_relative 'active_model_persistence/index'
