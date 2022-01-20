@@ -3,7 +3,7 @@
 # The default task
 
 desc 'Run the same tasks that the CI build will run'
-task default: %w[spec rubocop yard yard:coverage yard:audit bundle:audit build]
+task default: %w[spec rubocop yard yard:audit yard:coverage bundle:audit build]
 
 # Bundler Audit
 
