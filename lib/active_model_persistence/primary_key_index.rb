@@ -16,7 +16,10 @@ module ActiveModelPersistence
     include ActiveModelPersistence::PrimaryKey
     include ActiveModelPersistence::Indexable
 
-    class_methods do
+    # When this module is included in another class, ActiveSupport::Concern will
+    # make these class methods on that class.
+    #
+    module ClassMethods
       # Finds an object in the :primary_key index whose primary matches the given value
       #
       # @example
@@ -37,9 +40,9 @@ module ActiveModelPersistence
         find_by_primary_key(primary_key_value).first
       end
 
-      private
-
       # Create the primary key index
+      #
+      # @return [void]
       #
       # @api private
       #
@@ -49,6 +52,12 @@ module ActiveModelPersistence
     end
 
     included do
+      # Returns the primary key index
+      #
+      # @return [ActiveModelPersistence::Index]
+      #
+      # @api private
+      #
       def primary_key_index
         self.class.indexes[:primary_key]
       end

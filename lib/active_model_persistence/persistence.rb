@@ -53,7 +53,10 @@ module ActiveModelPersistence
     include ActiveModelPersistence::PrimaryKey
     include ActiveModelPersistence::PrimaryKeyIndex
 
-    class_methods do
+    # When this module is included in another class, ActiveSupport::Concern will
+    # make these class methods on that class.
+    #
+    module ClassMethods
       # Creates a new model object in to the object store
       #
       # Create a new model object passing `attributes` and `block` to `.new` and then calls `#save`.
@@ -128,7 +131,7 @@ module ActiveModelPersistence
         object_array.size
       end
 
-      alias_method(:size, :count)
+      alias size count
 
       # Removes all model objects from the object store
       #

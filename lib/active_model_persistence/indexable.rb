@@ -56,7 +56,10 @@ module ActiveModelPersistence
     include ActiveModel::Attributes
     include ActiveModelPersistence::PrimaryKey
 
-    class_methods do
+    # When this module is included in another class, ActiveSupport::Concern will
+    # make these class methods on that class.
+    #
+    module ClassMethods
       # Returns a hash of indexes for the model keyed by name
       #
       # @example
@@ -147,6 +150,8 @@ module ActiveModelPersistence
       private
 
       # Defines the default options for a new ActiveModelPersistence::Index
+      #
+      # @return [Hash] the default options
       #
       # @api private
       #
