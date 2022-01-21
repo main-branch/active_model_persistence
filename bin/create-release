@@ -379,7 +379,10 @@ class ReleaseCreator
     error 'Could not find changelog insertion point' unless first_entry
     FileUtils.rm('CHANGELOG.md')
     File.write('CHANGELOG.md', <<~CHANGELOG.chomp)
-      #{changelog_lines[0..first_entry - 1].join}## #{options.tag}
+      #{changelog_lines[0..first_entry - 1].join.chomp}
+      ## #{options.tag}
+
+      #{changelog(to: 'HEAD').lines[2..].join}
 
       See https://github.com/ruby-git/ruby-git/releases/tag/#{options.tag}
 
@@ -432,14 +435,12 @@ class ReleaseCreator
     end
   end
 
-  def changelog
+  def changelog(from: options.current_tag, to: options.next_tag)
     @changelog ||= begin
-      print 'Generating changelog...'
+      print "Generating changelog from #{from} to #{to}..."
       pwd = FileUtils.pwd
-      from = options.current_tag
-      to = options.next_tag
       command = "docker run --rm --volume '#{pwd}:/worktree' changelog-rs '#{from}' '#{to}'"
-      changelog = `#{command}`
+      changelog = `#{command}`.chomp
       if $CHILD_STATUS.success?
         puts 'OK'
         changelog.rstrip.lines[1..].join
