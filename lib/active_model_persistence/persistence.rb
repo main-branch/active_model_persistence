@@ -435,7 +435,7 @@ module ActiveModelPersistence
       #
       def _create
         return false unless primary_key?
-        raise UniqueContraintError if primary_key_index.include?(primary_key)
+        raise UniqueConstraintError if primary_key_index.include?(primary_key)
 
         self.class.object_array << self
 

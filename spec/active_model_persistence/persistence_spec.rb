@@ -186,6 +186,19 @@ RSpec.describe ActiveModelPersistence::Persistence do
           expect(model_class.find('3')).to eq(subject[2])
         end
       end
+
+      context 'when trying to create two objects with the same primary_key' do
+        let(:attributes) do
+          [
+            { short_id: '1', name: 'foo' },
+            { short_id: '1', name: 'bar' }
+          ]
+        end
+
+        it 'should raise a UniqueConstraintError' do
+          expect(error_raised).to be_a(ActiveModelPersistence::UniqueConstraintError)
+        end
+      end
     end
 
     describe '#save' do
