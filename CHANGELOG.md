@@ -7,6 +7,12 @@
 
 The full change log is stored on [this project's GitHub releases page](https://github.com/jcouball/active_model_persistence/releases).
 
+## v0.3.1
+
+* d904b30 Fix spelling of UniqueConstraintError (#12)
+
+See https://github.com/ruby-git/ruby-git/releases/tag/v0.3.1
+
 ## v0.3.0
 
 * 3b93fae List all changes in CHANGELOG.md instead of just a link (#10)
