@@ -31,6 +31,11 @@ SimpleCov.at_exit do
   end
 end
 
+RSpec::Matchers.define_negated_matcher :not_be_new_record, :be_new_record
+RSpec::Matchers.define_negated_matcher :not_be_persisted, :be_persisted
+RSpec::Matchers.define_negated_matcher :not_be_destroyed, :be_destroyed
+RSpec::Matchers.define_negated_matcher :not_be_valie, :be_valid
+
 SimpleCov.start
 
 # Make sure to require your project AFTER SimpleCov.start

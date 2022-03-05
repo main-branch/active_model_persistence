@@ -60,6 +60,7 @@ module ActiveModelPersistence
     # make these class methods on that class.
     #
     module ClassMethods
+      # @!attribute [r] indexes
       # Returns a hash of indexes for the model keyed by name
       #
       # @example
@@ -67,9 +68,7 @@ module ActiveModelPersistence
       #
       # @return [Hash<String, ActiveModelPersistence::Index>] the indexes defined by the model
       #
-      def indexes
-        @indexes ||= {}
-      end
+      # @api public
 
       # Adds an index to the model
       #
@@ -98,9 +97,7 @@ module ActiveModelPersistence
         indexes[index_name.to_sym] = index
 
         singleton_class.define_method("find_by_#{index_name}") do |key|
-          index.objects(key).tap do |objects|
-            objects.each { |o| o.instance_variable_set(:@previously_new_record, false) }
-          end
+          index.objects(key).select { |object| object.is_a?(self) }
         end
       end
 
@@ -125,7 +122,9 @@ module ActiveModelPersistence
       # @return [void]
       #
       def update_indexes(object)
-        indexes.each_value { |index| index.add_or_update(object) }
+        indexes.each_value do |index|
+          index.add_or_update(object) if object.is_a?(index.base_class)
+        end
       end
 
       # Removes the given object from all defined indexes
@@ -144,7 +143,9 @@ module ActiveModelPersistence
       # @return [void]
       #
       def remove_from_indexes(object)
-        indexes.each_value { |index| index.remove(object) }
+        indexes.each_value do |index|
+          index.remove(object) if object.is_a?(index.base_class)
+        end
       end
 
       private
@@ -158,12 +159,15 @@ module ActiveModelPersistence
       def default_index_options(index_name)
         {
           name: index_name.to_sym,
+          base_class: self,
           unique: false
         }
       end
     end
 
     included do
+      cattr_reader :indexes, instance_accessor: false, default: {}
+
       # Adds the object to the indexes defined by the model
       #
       # @example
