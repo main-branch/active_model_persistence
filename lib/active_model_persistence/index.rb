@@ -15,6 +15,18 @@ module ActiveModelPersistence
     #
     attr_reader :name
 
+    # Identifies the base class this index applies to
+    #
+    # Objects that are not of this class or one of its subclasses will not be added to the index.
+    #
+    # @example
+    #   i = Index.new(name: 'id', base_class: self, key_source: :id, unique: true)
+    #   i.base_class == self #=> true
+    #
+    # @return [Class] the class this index applies to
+    #
+    attr_reader :base_class
+
     # Defines how the object's key value is calculated
     #
     # If a proc is provided, it will be called with the object as an argument to get the key value.
@@ -22,7 +34,7 @@ module ActiveModelPersistence
     # If a symbol is provided, it will identify the method to call on the object to get the key value.
     #
     # @example
-    #   i = Index.new(name: 'id', key_value_source: :id, unique: true)
+    #   i = Index.new(name: 'id', base_class: self, key_value_source: :id, unique: true)
     #   i.key_value_source # => :id
     #
     # @return [Symbol, Proc] the method name or proc used to calculate the index key
@@ -37,7 +49,7 @@ module ActiveModelPersistence
     # when trying to add the second object.
     #
     # @example
-    #   i = Index.new(name: 'id', key_value_source: :id, unique: true)
+    #   i = Index.new(name: 'id', base_class: self, key_value_source: :id, unique: true)
     #   i.unique? # => true
     #
     # @return [Boolean] true if the index is unique
@@ -74,8 +86,9 @@ module ActiveModelPersistence
     # @param key_value_source [Symbol, Proc] the attribute name or proc used to calculate the index key
     # @param unique [Boolean] when true the index will only allow one object per key
     #
-    def initialize(name:, key_value_source: nil, unique: false)
+    def initialize(name:, base_class:, key_value_source: nil, unique: false)
       @name = name.to_s
+      @base_class = base_class
       @key_value_source = determine_key_value_source(name, key_value_source)
       @unique = unique
       @key_to_objects_map = {}
@@ -228,7 +241,7 @@ module ActiveModelPersistence
     # @api private
     #
     def remove_object_from_index(object, key)
-      key_to_objects_map[key].delete_if { |o| o.primary_key == object.primary_key }
+      key_to_objects_map[key].delete_if { |o| o.primary_key_value == object.primary_key_value }
       key_to_objects_map.delete(key) if key_to_objects_map[key].empty?
       object.clear_index_key(name)
     end

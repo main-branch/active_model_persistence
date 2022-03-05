@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'active_support/core_ext/module'
+
 module ActiveModelPersistence
   # Exposes the `primary_key` accessor to read or write the primary key attribute value
   #
@@ -42,7 +44,8 @@ module ActiveModelPersistence
     # make these class methods on that class.
     #
     module ClassMethods
-      # Identifies the attribute that the `primary_key` accessor maps to
+      # @!attribute [rw] primary_key
+      # Identifies the attribute that the `primary_key_value` accessor maps to
       #
       # The primary key is 'id' by default.
       #
@@ -54,33 +57,28 @@ module ActiveModelPersistence
       #   end
       #   Employee.primary_key #=> :username
       #
-      # @return [Symbol] the attribute that the `primary_key` accessor is an alias for
+      # @return [String] the attribute that the `primary_key` accessor is an alias for
       #
-      def primary_key
-        @primary_key ||= 'id'
-      end
+      # @api public
+    end
 
-      # Sets the attribute to use for the primary key
+    included do
+      # @!attribute [r] primary_key
+      # Identifies the attribute that the `primary_key_value` accessor maps to
+      #
+      # The primary key is 'id' by default.
       #
       # @example
       #   class Employee
       #     include ActiveModelPersistence::PrimaryKey
       #     attribute :username, :string
-      #     primary_key = :username
+      #     self.primary_key = :username
       #   end
-      #   e = Employee.new(username: 'couballj')
-      #   e.primary_key #=> 'couballj'
+      #   Employee.primary_key #=> :username
       #
-      # @param attribute [Symbol] the attribute to use for the primary key
-      #
-      # @return [void]
-      #
-      def primary_key=(attribute)
-        @primary_key = attribute.to_s
-      end
-    end
+      # @return [String] the attribute that the `primary_key` accessor is an alias for
+      cattr_accessor :primary_key, default: 'id', instance_writer: false
 
-    included do
       # Returns the primary key attribute's value
       #
       # @example
@@ -94,8 +92,8 @@ module ActiveModelPersistence
       #
       # @return [Object] the primary key attribute's value
       #
-      def primary_key
-        __send__(self.class.primary_key)
+      def primary_key_value
+        __send__(primary_key)
       end
 
       # Sets the primary key atribute's value
@@ -114,8 +112,8 @@ module ActiveModelPersistence
       #
       # @return [void]
       #
-      def primary_key=(value)
-        __send__("#{self.class.primary_key}=", value)
+      def primary_key_value=(value)
+        __send__("#{primary_key}=", value)
       end
 
       # Returns true if the primary key attribute's value is not null or empty
@@ -133,8 +131,8 @@ module ActiveModelPersistence
       #
       # @return [Boolean] true if the primary key attribute's value is not null or empty
       #
-      def primary_key?
-        primary_key.present?
+      def primary_key_value?
+        primary_key_value.present?
       end
     end
   end
