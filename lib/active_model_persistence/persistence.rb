@@ -158,7 +158,7 @@ module ActiveModelPersistence
       # @return [Array<Object>] the model objects in the object store
       #
       def all
-        object_array.select { |object| object.is_a?(self) }.each
+        object_array.each
       end
 
       # The number of model objects saved in the object store
@@ -174,7 +174,7 @@ module ActiveModelPersistence
       # @return [Integer] the number of model objects in the object store
       #
       def count
-        object_array.select { |object| object.is_a?(self) }.size
+        object_array.size
       end
 
       alias size count
@@ -196,11 +196,30 @@ module ActiveModelPersistence
       # @return [void]
       #
       def destroy_all
-        objects_to_destroy = object_array.select { |object| object.is_a?(self) }
-        objects_to_destroy.each(&:destroy)
+        object_array.first.destroy while object_array.size.positive?
       end
 
-      alias delete_all destroy_all
+      # Removes all model objects from the object store
+      #
+      # Each saved model object's `#destroy` method is NOT called.
+      #
+      # @example
+      #   array_of_attributes = [
+      #     { id: 1, name: 'James' },
+      #     { id: 2, name: 'Frank' }
+      #   ]
+      #   ModelExample.create(array_of_attributes)
+      #   ModelExample.all.count #=> 2
+      #   ModelExample.destroy_all
+      #   ModelExample.all.count #=> 0
+      #
+      # @return [void]
+      #
+      def delete_all
+        @object_array = []
+        indexes.values.each(&:remove_all)
+        nil
+      end
 
       # private
 
@@ -210,12 +229,13 @@ module ActiveModelPersistence
       #
       # @api private
       #
+      def object_array
+        @object_array ||= []
+      end
     end
 
     # rubocop:disable Metrics/BlockLength
     included do
-      cattr_reader :object_array, instance_accessor: false, default: []
-
       # Returns true if this object hasn't been saved or destroyed yet
       #
       # @example
@@ -351,7 +371,7 @@ module ActiveModelPersistence
       def destroy
         if persisted?
           remove_from_indexes
-          self.class.object_array.delete_if { |o| o.primary_key_value == primary_key_value }
+          self.class.object_array.delete_if { |o| o.primary_key == primary_key }
         end
         @new_record = false
         @destroyed = true
@@ -409,14 +429,13 @@ module ActiveModelPersistence
       # Creates a record with values matching those of the instance attributes
       # and returns its id.
       #
-      # @return [Object] the primary_key_value of the created object
+      # @return [Object] the primary_key of the created object
       #
       # @api private
       #
       def _create
-        return false unless primary_key_value?
-
-        raise UniqueConstraintError if primary_key_index.include?(primary_key_value)
+        return false unless primary_key?
+        raise UniqueConstraintError if primary_key_index.include?(primary_key)
 
         self.class.object_array << self
 
@@ -424,7 +443,7 @@ module ActiveModelPersistence
 
         yield(self) if block_given?
 
-        primary_key_value
+        primary_key
       end
 
       # Updates an object that is already in the object store
@@ -434,7 +453,7 @@ module ActiveModelPersistence
       # @api private
       #
       def _update
-        raise RecordNotFound unless primary_key_index.include?(primary_key_value)
+        raise RecordNotFound unless primary_key_index.include?(primary_key)
 
         yield(self) if block_given?
 

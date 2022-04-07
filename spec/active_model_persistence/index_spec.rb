@@ -1,24 +1,21 @@
 # frozen_string_literal: true
 
 RSpec.describe ActiveModelPersistence::Index do
-  let(:user_class) do
-    Class.new
-  end
   describe '#initialize' do
-    let(:index) { described_class.new(name: 'id', base_class: user_class, key_value_source: :id, unique: true) }
+    let(:index) { described_class.new(name: 'id', key_value_source: :id, unique: true) }
     subject { index }
-    it { is_expected.to have_attributes(name: 'id', base_class: user_class, key_value_source: :id, unique: true) }
+    it { is_expected.to have_attributes(name: 'id', key_value_source: :id, unique: true) }
     context 'when the unique flag is not given' do
-      let(:index) { described_class.new(name: 'id', base_class: user_class, key_value_source: :id) }
+      let(:index) { described_class.new(name: 'id', key_value_source: :id) }
       it 'should set the unique flag to false' do
         is_expected.to have_attributes(unique: false)
       end
     end
     context 'when the key_value_source is not given' do
-      let(:index) { described_class.new(name: 'id', base_class: user_class) }
+      let(:index) { described_class.new(name: 'id') }
 
       it 'should set the key_value_source to name.sym' do
-        is_expected.to have_attributes(name: 'id', base_class: user_class, key_value_source: :id)
+        is_expected.to have_attributes(name: 'id', key_value_source: :id)
       end
     end
   end
@@ -44,14 +41,7 @@ RSpec.describe ActiveModelPersistence::Index do
 
   describe '#add_or_update' do
     context 'for an index whose key_value_source is a proc' do
-      let(:index) do
-        described_class.new(
-          name: 'id',
-          base_class: indexable_class,
-          key_value_source: ->(object) { object.id * 100 },
-          unique: true
-        )
-      end
+      let(:index) { described_class.new(name: 'id', key_value_source: ->(object) { object.id * 100 }, unique: true) }
 
       context 'when the object is added to the index' do
         before do
@@ -65,9 +55,7 @@ RSpec.describe ActiveModelPersistence::Index do
     end
 
     context 'for a unique index' do
-      let(:index) do
-        described_class.new(name: 'id', base_class: indexable_class, key_value_source: :id, unique: true)
-      end
+      let(:index) { described_class.new(name: 'id', key_value_source: :id, unique: true) }
 
       context 'for an object whose key is not in the index' do
         it 'should add the object to the index with the correct key' do
@@ -118,11 +106,7 @@ RSpec.describe ActiveModelPersistence::Index do
     end
 
     context 'for a non-unique index' do
-      let(:index) do
-        described_class.new(
-          name: 'manager_id', base_class: indexable_class, key_value_source: :manager_id, unique: false
-        )
-      end
+      let(:index) { described_class.new(name: 'manager_id', key_value_source: :manager_id, unique: false) }
 
       context 'for an object whose key is not in the index' do
         it 'should add the object to the index with the correct key' do
@@ -161,7 +145,7 @@ RSpec.describe ActiveModelPersistence::Index do
   end
 
   describe '#remove' do
-    let(:index) { described_class.new(name: 'manager_id', base_class: indexable_class) }
+    let(:index) { described_class.new(name: 'manager_id') }
 
     context 'when trying to remove an object that is not in the index' do
       context 'and whose key is not in the index' do
@@ -208,7 +192,7 @@ RSpec.describe ActiveModelPersistence::Index do
   end
 
   describe '#remove_all' do
-    let(:index) { described_class.new(name: 'id', base_class: indexable_class, unique: true) }
+    let(:index) { described_class.new(name: 'id', unique: true) }
     context 'when the index is already empty' do
       it 'should not raise an error' do
         expect { index.remove_all }.not_to raise_error
@@ -235,3 +219,61 @@ RSpec.describe ActiveModelPersistence::Index do
     end
   end
 end
+
+#   let(:key1) { double('key1') }
+#   let(:key2) { double('key2') }
+#   let(:object1) { double('object1') }
+#   let(:object2) { double('object2') }
+
+#   describe '#add_or_update' do
+#     subject { index }
+
+#     context 'for a non-unique index' do
+#       let(:index_unique) { false }
+#       context 'when adding two entries with the same key' do
+#         it 'should succeed' do
+#           expect(object1).to receive(:save_index_key).with(index_name, key1)
+#           expect(object2).to receive(:save_index_key).with(index_name, key1)
+#           expect { subject.add_or_update(key1, nil, object1) }.not_to raise_error
+#           expect { subject.add_or_update(key1, nil, object2) }.not_to raise_error
+#         end
+#       end
+#     end
+
+#     context 'for a unique index' do
+#       let(:index_unique) { true }
+#       context 'when adding two entries with the same key' do
+#         it 'should fail' do
+#           # expect(object1).to receive(:save_index_key).with(index_name, key1)
+#           # expect { subject.add_or_update(key1, nil, object1) }.not_to raise_error
+#           # expect { subject.add_or_update(key1, nil, object2) }.to(
+#           #   raise_error(ActiveModelPersistence::Errors::UniqueContraintError)
+#           # )
+#         end
+#       end
+#     end
+#   end
+
+#   describe '#remove' do
+#     context 'when the key being removed is not in the index' do
+#       it 'should fail' do
+#         expect { index.remove(key1, object1) }.to raise_error(ActiveModelPersistence::Errors::KeyNotFoundError)
+#       end
+#     end
+
+#     context 'when removing an object with a key' do
+#     end
+#   end
+
+#   describe '#remove_all' do
+#   end
+
+#   describe '#target' do
+#   end
+
+#   describe '#include?' do
+#   end
+
+#   describe '#==' do
+#   end
+# end
