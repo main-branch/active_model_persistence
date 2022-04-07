@@ -7,6 +7,14 @@
 
 The full change log is stored on [this project's GitHub releases page](https://github.com/jcouball/active_model_persistence/releases).
 
+## v0.4.0
+
+* e491e22 Set the version file back to the correct version (#17)
+* 5774462 Improve the ObjectNotValidError message (#15)
+* cadde51 Add inheritance support (#14)
+
+See https://github.com/ruby-git/ruby-git/releases/tag/v0.4.0
+
 ## v0.3.1
 
 * d904b30 Fix spelling of UniqueConstraintError (#12)
