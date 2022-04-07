@@ -7,6 +7,13 @@
 
 The full change log is stored on [this project's GitHub releases page](https://github.com/jcouball/active_model_persistence/releases).
 
+## v0.5.0
+
+* 87b32e5 Fix the version file after the previous revert (#20)
+* f4f6c39 Revert "Add inheritance support (#14)" (#19)
+
+See https://github.com/ruby-git/ruby-git/releases/tag/v0.5.0
+
 ## v0.4.0
 
 * e491e22 Set the version file back to the correct version (#17)
