@@ -13,7 +13,7 @@ RSpec.describe ActiveModelPersistence::Persistence do
         attribute :short_id, :string
         attribute :name, :string
 
-        self.primary_key = 'short_id'
+        self.primary_key = :short_id
 
         index :name
 
@@ -23,66 +23,77 @@ RSpec.describe ActiveModelPersistence::Persistence do
 
     describe '.new' do
       context 'after creating an object with .new' do
-        let(:klass) { model_class }
-        let(:attributes) { { short_id: '1', name: 'foo' } }
-        subject! { klass.new(attributes) }
+        before do
+          @object = model_class.new(short_id: '1', name: 'foo')
+        end
 
-        it { is_expected.to be_a(klass) }
-
-        it { is_expected.to have_attributes(attributes) }
+        it 'should create a new instance of the model' do
+          expect(@object).to be_a(model_class)
+          expect(@object).to have_attributes(short_id: '1', name: 'foo')
+        end
 
         it 'should NOT add the object to the short_id index' do
-          expect(klass.find('1')).to be_nil
+          expect(model_class.find('1')).to be_nil
         end
 
         it 'should NOT add the object to the name index' do
-          expect(klass.find_by_name('foo')).to be_empty
+          expect(model_class.find_by_name('foo')).to be_empty
         end
 
-        it { is_expected.to be_new_record }
-        it { is_expected.not_to be_persisted }
-        it { is_expected.not_to be_destroyed }
-        it { is_expected.to be_valid }
+        it '#new_record? should be true' do
+          expect(@object.new_record?).to eq(true)
+        end
+
+        it '#destroyed? should be false' do
+          expect(@object.destroyed?).to eq(false)
+        end
+
+        it '#persisted? should be false' do
+          expect(@object.persisted?).to eq(false)
+        end
       end
     end
 
     describe '.create' do
       # Since '.create' uses '.save' internally, we don't test the details of '.save' here
 
-      let(:klass) { model_class }
-      subject! { klass.create(attributes) }
+      before do
+        @result = model_class.create(attributes)
+      end
+      subject { @result }
 
       context 'creating a valid object' do
         let(:attributes) { { short_id: '1', name: 'foo' } }
 
-        it { is_expected.to be_a(klass) }
-
-        it { is_expected.to have_attributes(attributes) }
+        it { is_expected.to be_a(model_class) }
+        it { is_expected.to have_attributes(short_id: '1', name: 'foo', persisted?: true) }
 
         it 'should add the object to the object store' do
-          expect(klass.find('1')).to eq(subject)
+          expect(model_class.find('1')).to eq(subject)
         end
 
         it 'should add the object to the name index' do
-          expect(klass.find_by_name('foo').first).to eq(subject)
+          expect(model_class.find_by_name('foo').first).to eq(subject)
         end
 
-        it { is_expected.not_to be_new_record }
-        it { is_expected.to be_persisted }
-        it { is_expected.not_to be_destroyed }
-        it { is_expected.to be_valid }
+        it '#new_record? should be false' do
+          expect(subject.new_record?).to eq(false)
+        end
+
+        it '#persisted? should be true' do
+          expect(subject.persisted?).to eq(true)
+        end
+
+        it '#destroyed? should be false' do
+          expect(subject.destroyed?).to eq(false)
+        end
       end
 
       context 'creating an invalid object' do
         let(:attributes) { { short_id: nil, name: nil } }
 
-        it { is_expected.to be_a(klass) }
-        it { is_expected.to have_attributes(attributes) }
-
-        it { is_expected.to be_new_record }
-        it { is_expected.not_to be_persisted }
-        it { is_expected.not_to be_destroyed }
-        it { is_expected.not_to be_valid }
+        it { is_expected.to be_a(model_class) }
+        it { is_expected.to have_attributes(short_id: nil, name: nil, persisted?: false) }
       end
 
       context 'when given an array of attribute hashs to create valid objects' do
@@ -97,12 +108,7 @@ RSpec.describe ActiveModelPersistence::Persistence do
         it { is_expected.to be_an(Array) }
         it { is_expected.to have_attributes(size: 3) }
         it { is_expected.to all(be_a(model_class)) }
-        it { is_expected.to all(have_attributes(short_id: be_a(String), name: be_a(String))) }
-
-        it { is_expected.to all(not_be_new_record) }
-        it { is_expected.to all(be_persisted) }
-        it { is_expected.to all(not_be_destroyed) }
-        it { is_expected.to all(be_valid) }
+        it { is_expected.to all(have_attributes(short_id: be_a(String), name: be_a(String), persisted?: true)) }
 
         it 'should have created the objects in the object store' do
           expect(model_class.all.size).to eq(3)
@@ -220,7 +226,10 @@ RSpec.describe ActiveModelPersistence::Persistence do
       let(:attributes) { { short_id: '1', name: 'foo' } }
 
       context 'with a new, valid object' do
-        subject! { object.save! }
+        before do
+          @result = object.save!
+        end
+        subject { @result }
 
         it { is_expected.to eq(true) }
 
@@ -270,11 +279,13 @@ RSpec.describe ActiveModelPersistence::Persistence do
       end
 
       context 'with an object that is already persisted and then changed' do
-        subject! do
+        before do
           object.save
           object.name = 'bar'
-          object.save!
+          @result = object.save!
         end
+
+        subject { @result }
 
         it { is_expected.to eq(true) }
 

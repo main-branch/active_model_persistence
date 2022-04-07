@@ -30,12 +30,10 @@ RSpec.describe ActiveModelPersistence::PrimaryKey do
     end
   end
 
-  describe '#primary_key_value' do
-    subject { @object.primary_key_value }
-
+  describe '#primary_key' do
     context 'when the primary key is mapped to the default `id` attribute' do
       it 'should return the value of the `id` attribute' do
-        expect(subject).to eq(1)
+        expect(@object.primary_key).to eq(1)
       end
     end
     context 'when the primary key is mapped to the `username` attribute' do
@@ -43,15 +41,15 @@ RSpec.describe ActiveModelPersistence::PrimaryKey do
         model_class.primary_key = 'username'
       end
       it 'should return the value of the `username` attribute' do
-        expect(subject).to eq('couballj')
+        expect(@object.primary_key).to eq('couballj')
       end
     end
   end
 
-  describe '#primary_key_value=' do
+  describe '#primary_key=' do
     context 'when the primary key is mapped to the default `id` attribute' do
       it 'should set the value of the `id` attribute' do
-        @object.primary_key_value = 2
+        @object.primary_key = 2
         expect(@object.id).to eq(2)
       end
     end
@@ -60,17 +58,17 @@ RSpec.describe ActiveModelPersistence::PrimaryKey do
         model_class.primary_key = 'username'
       end
       it 'should set the value of the `username` attribute' do
-        @object.primary_key_value = 'other'
+        @object.primary_key = 'other'
         expect(@object.username).to eq('other')
       end
     end
   end
 
-  describe '#primary_key_value?' do
+  describe '#primary_key?' do
     before do
       model_class.primary_key = 'username'
     end
-    subject { @object.primary_key_value? }
+    subject { @object.primary_key? }
 
     context 'when the primary key is set to a non-nil, non-empty value' do
       it { is_expected.to eq(true) }

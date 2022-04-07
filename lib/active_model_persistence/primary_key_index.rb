@@ -47,7 +47,7 @@ module ActiveModelPersistence
       # @api private
       #
       def self.extended(base)
-        base.index('primary_key', key_value_source: :primary_key_value, unique: true)
+        base.index('primary_key', key_value_source: :primary_key, unique: true)
       end
     end
 
