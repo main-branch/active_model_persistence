@@ -324,7 +324,7 @@ module ActiveModelPersistence
       #
       def save!(**_options, &block)
         raise ObjectDestroyedError if destroyed?
-        raise ObjectNotValidError unless valid?
+        raise ObjectNotValidError, self unless valid?
 
         new_record? ? _create(&block) : _update(&block)
         update_indexes

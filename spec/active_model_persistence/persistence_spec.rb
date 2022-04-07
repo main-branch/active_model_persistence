@@ -4,6 +4,10 @@ RSpec.describe ActiveModelPersistence::Persistence do
   context 'when included in a model' do
     let(:model_class) do
       Class.new do
+        def self.name
+          'ModelClass'
+        end
+
         include ActiveModelPersistence::Persistence
 
         attribute :short_id, :string
