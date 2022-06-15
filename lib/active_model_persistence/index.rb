@@ -101,6 +101,21 @@ module ActiveModelPersistence
       key_to_objects_map[key] || []
     end
 
+    # Returns an array of all objects in the index
+    # @example
+    #   i = Index.new(name: 'id', key_source: :id, unique: true)
+    #   e1 = Employee.new(id: 1, name: 'James')
+    #   e2 = Employee.new(id: 2, name: 'Frank')
+    #   i.add(e1.id, e1)
+    #   i.add(e2.id, e2)
+    #   i.all_objects # => [e1, e2]
+    #
+    # @return [Array<Object>] all objects in the index
+    #
+    def all_objects
+      key_to_objects_map.values.reduce(&:concat) || []
+    end
+
     # Returns true if the index contains an object with the given key
     #
     # @example

@@ -39,6 +39,66 @@ RSpec.describe ActiveModelPersistence::Index do
 
   describe '#include?'
 
+  describe '#all_objects' do
+    subject { index.all_objects }
+
+    let(:index) { described_class.new(name: 'id', key_value_source: :id, unique: true) }
+
+    context 'with no objects in the index' do
+      let(:expected_objects) { [] }
+      it { is_expected.to eq(expected_objects) }
+    end
+
+    context 'when there is one object in the index' do
+      before do
+        index.add_or_update(object1)
+      end
+      let(:expected_objects) { [object1] }
+      it { is_expected.to eq(expected_objects) }
+    end
+
+    context 'when there are two objects in the index' do
+      before do
+        index.add_or_update(object1)
+        index.add_or_update(object2)
+      end
+      let(:expected_objects) { [object1, object2] }
+      it { is_expected.to eq(expected_objects) }
+    end
+
+    context 'when the index is non-unique' do
+      let(:index) { described_class.new(name: 'age', key_value_source: :age, unique: false) }
+
+      let(:indexable_class) do
+        Class.new do
+          include ActiveModelPersistence::Indexable
+
+          attribute :id, :integer
+          attribute :name, :string
+          attribute :age, :integer
+
+          index :age, unique: false
+        end
+      end
+
+      context 'and two of the objects have the same key value' do
+        let(:object1) { indexable_class.new(id: 1, name: 'James', age: 33) }
+        let(:object2) { indexable_class.new(id: 2, name: 'Frank', age: 33) }
+        let(:object3) { indexable_class.new(id: 3, name: 'Aaron', age: 30) }
+
+        before do
+          index.add_or_update(object1)
+          index.add_or_update(object2)
+          index.add_or_update(object3)
+        end
+
+        let(:expected_objects) { [object1, object2, object3] }
+
+        it { is_expected.to eq(expected_objects) }
+      end
+    end
+  end
+
   describe '#add_or_update' do
     context 'for an index whose key_value_source is a proc' do
       let(:index) { described_class.new(name: 'id', key_value_source: ->(object) { object.id * 100 }, unique: true) }
