@@ -179,6 +179,21 @@ module ActiveModelPersistence
 
       alias size count
 
+      # Returns true if there are no model objects saved in the object store
+      #
+      # @example
+      #   array_of_attributes = [
+      #   ]
+      #   ModelExample.create(array_of_attributes)
+      #   ModelExample.size #=> 0
+      #   ModelExample.empty? #=> true
+      #
+      # @return [Integer] the number of model objects in the object store
+      #
+      def empty?
+        object_array.size.zero?
+      end
+
       # Removes all model objects from the object store
       #
       # Each saved model object's `#destroy` method is called.
