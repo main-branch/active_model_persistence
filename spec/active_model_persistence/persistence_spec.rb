@@ -272,7 +272,7 @@ RSpec.describe ActiveModelPersistence::Persistence do
           expect(object.persisted?).to eq(false)
         end
 
-        it 'should not add the object to the object store' do\
+        it 'should not add the object to the object store' do
           expect { object.save! }.to raise_error(ActiveModelPersistence::ObjectNotValidError)
           expect(model_class.all.size).to be_zero
         end
