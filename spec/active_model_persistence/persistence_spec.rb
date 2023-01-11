@@ -387,6 +387,7 @@ RSpec.describe ActiveModelPersistence::Persistence do
 
         it 'should have three object in the object store' do
           expect(model_class.size).to eq(3)
+          expect(model_class.empty?).to eq(false)
         end
 
         context 'after calling .destroy_all' do
@@ -396,6 +397,7 @@ RSpec.describe ActiveModelPersistence::Persistence do
 
           it 'should remove all objects from the obejct store' do
             expect(model_class.size).to be_zero
+            expect(model_class.empty?).to eq(true)
           end
         end
       end
