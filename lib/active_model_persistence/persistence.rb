@@ -217,7 +217,7 @@ module ActiveModelPersistence
       #
       def delete_all
         @object_array = []
-        indexes.values.each(&:remove_all)
+        indexes.each_value(&:remove_all)
         nil
       end
 

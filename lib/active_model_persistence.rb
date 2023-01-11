@@ -2,7 +2,10 @@
 
 require 'active_support'
 require 'active_model'
+
+# rubocop:disable Lint/RedundantRequireStatement
 require 'pp'
+# rubocop:enable Lint/RedundantRequireStatement
 
 # A set of mixins to add to ActiveModel classes to support persistence
 #
